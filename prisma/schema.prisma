@@ -37,6 +37,15 @@ enum TradeSource {
   MANUAL
 }
 
+enum AccountSyncStatus {
+  PENDING
+  DEPLOYING
+  CONNECTED
+  SYNCING
+  ERROR
+  DISCONNECTED
+}
+
 // ---------------------------------------------------------------------------
 // Application models
 // ---------------------------------------------------------------------------
@@ -87,8 +96,14 @@ model TradingAccount {
   server           String
   type             AccountPlatform
   metaApiAccountId String?
-  isActive         Boolean         @default(true)
-  createdAt        DateTime        @default(now())
+  // Investor (read-only) password, encrypted at rest (AES-256-GCM).
+  investorPassword String?
+  isActive         Boolean           @default(true)
+  status           AccountSyncStatus @default(PENDING)
+  statusMessage    String?
+  // Cursor: timestamp of the latest synced deal (for incremental sync).
+  lastSyncedAt     DateTime?
+  createdAt        DateTime          @default(now())
 
   user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   trades Trade[]
