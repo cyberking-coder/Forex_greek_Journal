@@ -161,7 +161,14 @@ export default async function TradesPage({
                   <td className="whitespace-nowrap px-4 py-3 text-muted">
                     {formatDateTime(trade.openTime)}
                   </td>
-                  <td className="px-4 py-3 font-medium">{trade.symbol}</td>
+                  <td className="px-4 py-3 font-medium">
+                    <Link
+                      href={`/dashboard/trades/${trade.id}`}
+                      className="transition-colors hover:text-accent"
+                    >
+                      {trade.symbol}
+                    </Link>
+                  </td>
                   <td className="px-4 py-3">
                     <span
                       className={

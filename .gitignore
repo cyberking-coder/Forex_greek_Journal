@@ -18,6 +18,9 @@
 .DS_Store
 *.pem
 
+# local screenshot uploads (dev fallback storage)
+/public/uploads
+
 # debug
 npm-debug.log*
 yarn-debug.log*

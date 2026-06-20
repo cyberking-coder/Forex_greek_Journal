@@ -62,6 +62,21 @@ model User {
   tradingAccounts TradingAccount[]
   trades          Trade[]
   aiReports       AiReport[]
+  checklistItems  ChecklistItem[]
+}
+
+// User-defined pre-trade checklist items. The per-trade ticked state is stored
+// as JSON on JournalEntry.checklist (a snapshot of id/label/checked).
+model ChecklistItem {
+  id        String   @id @default(cuid())
+  userId    String
+  label     String
+  position  Int      @default(0)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model TradingAccount {
