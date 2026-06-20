@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getCurrentUser, signOut } from "@/lib/auth";
 
 export default async function DashboardPage() {
@@ -23,6 +24,13 @@ export default async function DashboardPage() {
           </p>
         </div>
       )}
+
+      <Link
+        href="/dashboard/trades"
+        className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-hover"
+      >
+        View Trades
+      </Link>
 
       <form
         action={async () => {
