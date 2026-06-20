@@ -18,14 +18,45 @@
   --color-accent: #3b82f6;
   --color-accent-hover: #2563eb;
   --color-accent-foreground: #ffffff;
+
+  /* Soft glow used behind hero / section accents. */
+  --color-accent-glow: rgba(59, 130, 246, 0.35);
 }
 
 @layer base {
   html {
     color-scheme: dark;
+    scroll-behavior: smooth;
   }
 
   body {
     @apply bg-background text-foreground antialiased;
+  }
+
+  /* Offset anchored sections so they clear the sticky nav. */
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+}
+
+@layer components {
+  /* Centered content column shared across marketing sections. */
+  .container-marketing {
+    @apply mx-auto w-full max-w-7xl px-6 lg:px-8;
+  }
+
+  /* Accent gradient text for headline emphasis. */
+  .text-gradient-accent {
+    @apply bg-gradient-to-r from-accent to-sky-300 bg-clip-text text-transparent;
+  }
+
+  /* Subtle dotted grid used as a cinematic backdrop. */
+  .bg-grid {
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      rgba(255, 255, 255, 0.05) 1px,
+      transparent 0
+    );
+    background-size: 32px 32px;
   }
 }
