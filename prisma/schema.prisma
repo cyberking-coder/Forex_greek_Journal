@@ -1,0 +1,20 @@
+// Prisma schema — https://pris.ly/d/prisma-schema
+// Postgres provider. DIRECT_URL is used for migrations / connections that must
+// bypass a connection pooler (e.g. Prisma Migrate, or PgBouncer setups).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// Placeholder model so the Prisma client can be generated before any real
+// schema exists. Safe to replace once feature models are introduced.
+model HealthCheck {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+}
