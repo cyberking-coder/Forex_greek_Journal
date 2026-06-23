@@ -26,10 +26,10 @@ Use any managed Postgres. Good fits for Vercel:
 
 You need two connection strings:
 
-| Var           | Purpose                                   | Notes                          |
-| ------------- | ----------------------------------------- | ------------------------------ |
-| `DATABASE_URL`| Runtime queries (pooled)                  | Use the **pooled** connection. |
-| `DIRECT_URL`  | `prisma migrate` (direct, non-pooled)     | Use the **direct** connection. |
+| Var            | Purpose                               | Notes                          |
+| -------------- | ------------------------------------- | ------------------------------ |
+| `DATABASE_URL` | Runtime queries (pooled)              | Use the **pooled** connection. |
+| `DIRECT_URL`   | `prisma migrate` (direct, non-pooled) | Use the **direct** connection. |
 
 Serverless needs a pooled connection (PgBouncer/Neon pooler) to avoid exhausting
 connections. Prisma Migrate needs the direct one.
@@ -128,6 +128,33 @@ Errors from server components, route handlers, the edge, and the browser are
 captured automatically; route error boundaries (`app/error.tsx`,
 `app/global-error.tsx`, dashboard `error.tsx`) report explicitly too.
 
+## GitHub Pages (landing page only)
+
+**GitHub Pages serves static files only — it cannot run this app** (auth,
+database, MT5 sync, API routes, server actions, billing, chat, and share cards
+all need a server). So Pages is used here to host just the **marketing landing
+page**, which links visitors to the real app deployed on Vercel/Node.
+
+What's included:
+
+- `docs/index.html` — a self-contained static landing page (no build step).
+- `.github/workflows/deploy-pages.yml` — builds and publishes `docs/` to Pages.
+
+To enable it:
+
+1. **Settings → Pages → Build and deployment → Source:** select
+   **GitHub Actions**.
+2. (Optional) **Settings → Secrets and variables → Actions → Variables:** add a
+   repository variable `APP_URL` pointing at your deployed app
+   (e.g. `https://greek-journal.vercel.app`). The landing page's buttons are
+   rewritten to this URL at deploy time; without it they fall back to the repo
+   URL.
+3. Push to `main`/`master` (or run the workflow manually from the **Actions**
+   tab). The landing page goes live at
+   `https://<user>.github.io/<repo>/`.
+
+To change the landing copy, edit `docs/index.html` directly.
+
 ## Post-deploy checklist
 
 - [ ] `https://<domain>/` loads; `https://<domain>/sitemap.xml` and `/robots.txt` resolve
@@ -135,3 +162,4 @@ captured automatically; route error boundaries (`app/error.tsx`,
 - [ ] `NEXT_PUBLIC_APP_URL` matches the live domain (check OG tags / share links)
 - [ ] `curl -H "Authorization: Bearer $CRON_SECRET" https://<domain>/api/cron/sync` returns `{ ok: true }`
 - [ ] (If using Sentry) a test error appears in the Sentry dashboard
+- [ ] (If using GitHub Pages) the landing page loads and its buttons point to the app
