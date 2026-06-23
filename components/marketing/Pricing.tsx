@@ -103,7 +103,13 @@ export function Pricing() {
               </div>
 
               <CtaButton
-                href={tier.cta.href}
+                href={
+                  tier.id === "free"
+                    ? tier.cta.href
+                    : `/dashboard/billing?plan=${tier.id.toUpperCase()}&interval=${
+                        yearly ? "yearly" : "monthly"
+                      }`
+                }
                 variant={tier.mostPopular ? "primary" : "secondary"}
                 className="mt-6 w-full"
               >

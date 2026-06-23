@@ -14,6 +14,10 @@ export function getTradingAccount(userId: string, id: string) {
   return prisma.tradingAccount.findFirst({ where: { id, userId } });
 }
 
+export function countTradingAccounts(userId: string): Promise<number> {
+  return prisma.tradingAccount.count({ where: { userId } });
+}
+
 export type CreateTradingAccountData = {
   broker: string;
   login: string;

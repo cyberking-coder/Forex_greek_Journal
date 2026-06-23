@@ -28,7 +28,7 @@ export function GenerateReportButton({
       <div className="border-accent/40 bg-accent/10 flex flex-wrap items-center gap-3 rounded-xl border px-4 py-3 text-sm">
         <span>AI reports are a Pro &amp; Elite feature.</span>
         <Link
-          href="/#pricing"
+          href="/dashboard/billing"
           className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-hover"
         >
           Upgrade to Pro

@@ -8,8 +8,10 @@ import {
   createTradingAccount,
   deleteTradingAccount,
   getTradingAccount,
+  countTradingAccounts,
   updateAccountSync,
 } from "@/lib/db/accounts";
+import { syncAccountLimitFor } from "@/lib/plan";
 import { getBrokerProvider } from "@/lib/metaapi/provider";
 import { syncTradingAccount, syncAllForUser } from "@/lib/metaapi/sync";
 import { BrokerError, type AccountActionResult } from "@/lib/metaapi/types";
@@ -19,6 +21,23 @@ export async function connectAccountAction(
 ): Promise<AccountActionResult> {
   const user = await getCurrentUser();
   if (!user) return { ok: false, error: "You must be signed in." };
+
+  // Enforce the plan's sync-account limit.
+  const limit = syncAccountLimitFor(user.plan);
+  if (limit <= 0) {
+    return {
+      ok: false,
+      error:
+        "Account sync is available on the Pro and Elite plans. Upgrade to connect a broker.",
+    };
+  }
+  const existing = await countTradingAccounts(user.id);
+  if (existing >= limit) {
+    return {
+      ok: false,
+      error: `Your plan allows ${limit} connected account(s). Upgrade to connect more.`,
+    };
+  }
 
   const parsed = connectAccountSchema.safeParse(raw);
   if (!parsed.success) {

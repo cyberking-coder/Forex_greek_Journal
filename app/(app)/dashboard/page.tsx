@@ -147,6 +147,12 @@ export default async function DashboardPage() {
             AI Reports
           </Link>
           <Link
+            href="/dashboard/billing"
+            className="hover:border-accent/50 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium transition-colors hover:bg-surface-elevated"
+          >
+            Billing
+          </Link>
+          <Link
             href="/dashboard/settings"
             className="hover:border-accent/50 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium transition-colors hover:bg-surface-elevated"
           >

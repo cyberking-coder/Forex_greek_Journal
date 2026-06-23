@@ -63,6 +63,12 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
+  // Billing (Dodo Payments)
+  dodoCustomerId     String?
+  subscriptionId     String?
+  subscriptionStatus String?
+  planRenewsAt       DateTime?
+
   // Auth.js adapter relations
   accounts Account[]
   sessions Session[]
