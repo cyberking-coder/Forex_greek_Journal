@@ -8,6 +8,7 @@ import {
   regenerateShareTokenAction,
 } from "@/app/(app)/dashboard/leaderboard/actions";
 import type { ShareFormat } from "@/lib/share/card";
+import { toast } from "@/lib/toast";
 import { cn } from "@/lib/utils";
 
 const FORMATS: { key: ShareFormat; label: string; ratio: string }[] = [
@@ -39,10 +40,15 @@ export function ShareControls({
   function toggle(next: boolean) {
     startTransition(async () => {
       const res = await setPublicShareAction(next);
-      if (res.ok) {
-        setEnabled(next);
-        if (next && res.token) setToken(res.token);
+      if (!res.ok) {
+        toast.error(res.error);
+        return;
       }
+      setEnabled(next);
+      if (next && res.token) setToken(res.token);
+      toast.success(
+        next ? "Public sharing enabled." : "Public sharing disabled.",
+      );
       router.refresh();
     });
   }
@@ -50,7 +56,12 @@ export function ShareControls({
   function regenerate() {
     startTransition(async () => {
       const res = await regenerateShareTokenAction();
-      if (res.ok && res.token) setToken(res.token);
+      if (!res.ok) {
+        toast.error(res.error);
+        return;
+      }
+      if (res.token) setToken(res.token);
+      toast.success("New link generated. The old link no longer works.");
       router.refresh();
     });
   }
@@ -60,9 +71,10 @@ export function ShareControls({
     try {
       await navigator.clipboard.writeText(shareUrl);
       setCopied(true);
+      toast.success("Link copied to clipboard.");
       setTimeout(() => setCopied(false), 1500);
     } catch {
-      /* clipboard unavailable */
+      toast.error("Couldn't copy — copy the link manually.");
     }
   }
 

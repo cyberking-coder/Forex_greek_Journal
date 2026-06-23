@@ -37,7 +37,7 @@ function StatCard({
         ? "text-red-400"
         : "text-foreground";
   return (
-    <div className="rounded-2xl border border-border bg-surface/60 p-5">
+    <div className="bg-surface/60 rounded-2xl border border-border p-5">
       <p className="text-xs font-medium uppercase tracking-wider text-muted">
         {label}
       </p>
@@ -84,7 +84,7 @@ export default async function SharedDashboardPage({
           href="/"
           className="flex items-center gap-2 text-sm font-semibold text-muted transition-colors hover:text-foreground"
         >
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/15 text-accent">
+          <span className="bg-accent/15 flex h-8 w-8 items-center justify-center rounded-lg text-accent">
             <LineChart className="h-5 w-5" aria-hidden />
           </span>
           Greek Journal
@@ -92,7 +92,7 @@ export default async function SharedDashboardPage({
       </div>
 
       {summary.totalTrades === 0 ? (
-        <div className="mt-8 rounded-2xl border border-border bg-surface/60 p-12 text-center text-muted">
+        <div className="bg-surface/60 mt-8 rounded-2xl border border-border p-12 text-center text-muted">
           No trades shared yet.
         </div>
       ) : (
@@ -112,7 +112,7 @@ export default async function SharedDashboardPage({
           </div>
 
           <div className="mt-6 grid gap-4 lg:grid-cols-2">
-            <div className="rounded-2xl border border-border bg-surface/60 p-5">
+            <div className="bg-surface/60 rounded-2xl border border-border p-5">
               <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted">
                 Equity Curve
               </h2>
@@ -124,7 +124,7 @@ export default async function SharedDashboardPage({
                 </p>
               )}
             </div>
-            <div className="rounded-2xl border border-border bg-surface/60 p-5">
+            <div className="bg-surface/60 rounded-2xl border border-border p-5">
               <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted">
                 Drawdown
               </h2>
@@ -139,7 +139,7 @@ export default async function SharedDashboardPage({
           </div>
 
           <div className="mt-4 grid gap-4 lg:grid-cols-2">
-            <div className="rounded-2xl border border-border bg-surface/60 p-5">
+            <div className="bg-surface/60 rounded-2xl border border-border p-5">
               <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted">
                 Daily PnL
               </h2>
@@ -151,7 +151,7 @@ export default async function SharedDashboardPage({
                 </p>
               )}
             </div>
-            <div className="rounded-2xl border border-border bg-surface/60 p-5">
+            <div className="bg-surface/60 rounded-2xl border border-border p-5">
               <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted">
                 PnL by Symbol
               </h2>

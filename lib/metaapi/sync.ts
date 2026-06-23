@@ -1,5 +1,6 @@
 import {
   getTradingAccount,
+  listAllActiveAccounts,
   listTradingAccounts,
   updateAccountSync,
   upsertSyncedTrade,
@@ -89,4 +90,36 @@ export async function syncAllForUser(userId: string): Promise<{
     }
   }
   return { accounts: synced, created, updated };
+}
+
+/**
+ * Syncs every active account across all users. Drives the background worker
+ * and the Vercel cron. Errors on one account never abort the rest.
+ */
+export async function syncAllAccounts(): Promise<{
+  accounts: number;
+  created: number;
+  updated: number;
+  failed: number;
+}> {
+  const accounts = await listAllActiveAccounts();
+  let created = 0;
+  let updated = 0;
+  let synced = 0;
+  let failed = 0;
+  for (const account of accounts) {
+    try {
+      const result = await syncTradingAccount(account.userId, account.id);
+      if (result.ok) {
+        created += result.created;
+        updated += result.updated;
+        synced++;
+      } else {
+        failed++;
+      }
+    } catch {
+      failed++;
+    }
+  }
+  return { accounts: synced, created, updated, failed };
 }

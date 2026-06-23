@@ -3,7 +3,11 @@ import Link from "next/link";
 import { AuthShell } from "@/components/auth/AuthShell";
 import { LoginForm } from "@/components/auth/LoginForm";
 
-export const metadata = { title: "Sign in — Greek Journal" };
+export const metadata = {
+  title: "Sign in",
+  description:
+    "Sign in to your Greek Journal account to track and analyze your forex trades.",
+};
 
 export default function LoginPage() {
   return (

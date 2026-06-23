@@ -13,7 +13,7 @@ export default function LandingPage() {
   return (
     <>
       <Navbar />
-      <main>
+      <main id="main-content">
         <Hero />
         <Features />
         <Community />

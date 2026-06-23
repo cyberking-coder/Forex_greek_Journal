@@ -7,6 +7,7 @@ import {
   setOptInAction,
   setDisplayNameAction,
 } from "@/app/(app)/dashboard/leaderboard/actions";
+import { toast } from "@/lib/toast";
 
 export function OptInControls({
   optedIn,
@@ -21,21 +22,35 @@ export function OptInControls({
 
   function toggle(next: boolean) {
     startTransition(async () => {
-      await setOptInAction(next);
+      const res = await setOptInAction(next);
+      if (!res.ok) {
+        toast.error(res.error);
+        return;
+      }
+      toast.success(
+        next
+          ? "You've joined the leaderboard."
+          : "You've left the leaderboard.",
+      );
       router.refresh();
     });
   }
 
   function saveName() {
     startTransition(async () => {
-      await setDisplayNameAction(name);
+      const res = await setDisplayNameAction(name);
+      if (!res.ok) {
+        toast.error(res.error);
+        return;
+      }
+      toast.success("Display name saved.");
       router.refresh();
     });
   }
 
   if (!optedIn) {
     return (
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-accent/40 bg-accent/10 px-4 py-3">
+      <div className="border-accent/40 bg-accent/10 flex flex-wrap items-center justify-between gap-3 rounded-xl border px-4 py-3">
         <p className="flex items-center gap-2 text-sm">
           <Trophy className="h-4 w-4 text-accent" aria-hidden />
           Join the leaderboard to rank against other traders. Only your display
@@ -54,7 +69,7 @@ export function OptInControls({
   }
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-surface/60 px-4 py-3">
+    <div className="bg-surface/60 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border px-4 py-3">
       <div className="flex items-center gap-2">
         <label htmlFor="displayName" className="text-sm text-muted">
           Display name

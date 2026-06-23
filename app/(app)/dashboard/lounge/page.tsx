@@ -8,7 +8,7 @@ import { CHANNELS, resolveChannel } from "@/lib/chat/channels";
 import { isRealtimeConfigured } from "@/lib/chat/realtime";
 import { LoungeClient } from "@/components/lounge/LoungeClient";
 
-export const metadata = { title: "Traders Lounge — Greek Journal" };
+export const metadata = { title: "Traders Lounge" };
 
 type SearchParams = Record<string, string | string[] | undefined>;
 

@@ -11,6 +11,8 @@ import {
 } from "@/lib/format";
 import { JournalPanel } from "@/components/journal/JournalPanel";
 
+export const metadata = { title: "Trade detail" };
+
 function Stat({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="flex items-center justify-between gap-4 py-2 text-sm">

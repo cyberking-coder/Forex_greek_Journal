@@ -33,9 +33,29 @@
     @apply bg-background text-foreground antialiased;
   }
 
+  /* Visible keyboard focus across all interactive elements. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-background;
+  }
+
   /* Offset anchored sections so they clear the sticky nav. */
   section[id] {
     scroll-margin-top: 5rem;
+  }
+
+  /* Respect users who prefer reduced motion. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 

@@ -12,7 +12,7 @@ import { formatSignedCurrency } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { OptInControls } from "@/components/leaderboard/OptInControls";
 
-export const metadata = { title: "Leaderboard — Greek Journal" };
+export const metadata = { title: "Leaderboard" };
 
 type SearchParams = Record<string, string | string[] | undefined>;
 function read(params: SearchParams, key: string): string | undefined {
@@ -106,7 +106,7 @@ export default async function LeaderboardPage({
       <div className="mt-4 overflow-x-auto rounded-xl border border-border">
         <table className="w-full min-w-[560px] text-sm">
           <thead>
-            <tr className="border-b border-border bg-surface/60 text-left text-xs uppercase tracking-wider text-muted">
+            <tr className="bg-surface/60 border-b border-border text-left text-xs uppercase tracking-wider text-muted">
               <th className="px-4 py-3 font-medium">#</th>
               <th className="px-4 py-3 font-medium">Trader</th>
               <th className="px-4 py-3 text-right font-medium">PnL</th>
@@ -128,12 +128,14 @@ export default async function LeaderboardPage({
                   <tr
                     key={row.userId}
                     className={cn(
-                      "border-b border-border/60 last:border-0",
+                      "border-border/60 border-b last:border-0",
                       isMe ? "bg-accent/10" : "hover:bg-surface/40",
                     )}
                   >
                     <td className="px-4 py-3 font-semibold">
-                      {row.rank <= 3 ? ["🥇", "🥈", "🥉"][row.rank - 1] : row.rank}
+                      {row.rank <= 3
+                        ? ["🥇", "🥈", "🥉"][row.rank - 1]
+                        : row.rank}
                     </td>
                     <td className="px-4 py-3 font-medium">
                       {row.name}

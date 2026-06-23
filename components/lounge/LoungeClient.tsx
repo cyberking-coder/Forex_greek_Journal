@@ -9,6 +9,7 @@ import {
   sendMessageAction,
   toggleReactionAction,
 } from "@/app/(app)/dashboard/lounge/actions";
+import { toast } from "@/lib/toast";
 import { cn } from "@/lib/utils";
 
 const POLL_MS = 4000;
@@ -114,6 +115,7 @@ export function LoungeClient({
         );
       } else {
         setDraft(body);
+        toast.error(res.error);
       }
     });
   }
@@ -123,6 +125,7 @@ export function LoungeClient({
     startTransition(async () => {
       const res = await toggleReactionAction(messageId, emoji);
       if (res.ok) refresh(channelRef.current);
+      else toast.error(res.error);
     });
   }
 

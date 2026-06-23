@@ -80,11 +80,16 @@ export function LoginForm() {
           />
         </div>
 
-        {error && <p className="text-sm text-red-400">{error}</p>}
+        {error && (
+          <p role="alert" className="text-sm text-red-400">
+            {error}
+          </p>
+        )}
 
         <button
           type="submit"
           disabled={loading}
+          aria-busy={loading}
           className="w-full rounded-lg bg-accent px-4 py-2.5 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-hover disabled:opacity-60"
         >
           {loading ? "Signing in..." : "Sign in"}

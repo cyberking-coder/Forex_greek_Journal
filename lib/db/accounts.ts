@@ -14,6 +14,17 @@ export function getTradingAccount(userId: string, id: string) {
   return prisma.tradingAccount.findFirst({ where: { id, userId } });
 }
 
+/**
+ * Every active, connected account across all users — for the background sync
+ * worker / cron. Returns just the ids needed to drive syncTradingAccount.
+ */
+export function listAllActiveAccounts() {
+  return prisma.tradingAccount.findMany({
+    where: { isActive: true, metaApiAccountId: { not: null } },
+    select: { id: true, userId: true },
+  });
+}
+
 export function countTradingAccounts(userId: string): Promise<number> {
   return prisma.tradingAccount.count({ where: { userId } });
 }

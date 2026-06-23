@@ -9,7 +9,7 @@ import { GenerateReportButton } from "@/components/reports/GenerateReportButton"
 import { ReportCard } from "@/components/reports/ReportCard";
 import { GradeBadge } from "@/components/reports/GradeBadge";
 
-export const metadata = { title: "AI Reports — Greek Journal" };
+export const metadata = { title: "AI Reports" };
 
 type SearchParams = Record<string, string | string[] | undefined>;
 

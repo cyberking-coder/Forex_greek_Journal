@@ -96,22 +96,25 @@ export function Contact() {
             <button
               type="submit"
               disabled={status === "submitting"}
+              aria-busy={status === "submitting"}
               className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-hover disabled:opacity-60"
             >
               <Send className="h-4 w-4" aria-hidden />
               {status === "submitting" ? "Sending..." : "Send Message"}
             </button>
 
-            {status === "success" && (
-              <p className="mt-3 text-sm text-emerald-400">
-                Thanks! We&apos;ll be in touch shortly.
-              </p>
-            )}
-            {status === "error" && (
-              <p className="mt-3 text-sm text-red-400">
-                Something went wrong. Please try again.
-              </p>
-            )}
+            <div aria-live="polite" className="mt-3">
+              {status === "success" && (
+                <p className="text-sm text-emerald-400">
+                  Thanks! We&apos;ll be in touch shortly.
+                </p>
+              )}
+              {status === "error" && (
+                <p role="alert" className="text-sm text-red-400">
+                  Something went wrong. Please try again.
+                </p>
+              )}
+            </div>
           </form>
         </div>
       </Container>

@@ -10,7 +10,7 @@ import { AccountActions } from "@/components/accounts/AccountActions";
 import { AutoSync } from "@/components/accounts/AutoSync";
 import { SyncStatusBadge } from "@/components/accounts/SyncStatusBadge";
 
-export const metadata = { title: "Accounts — Greek Journal" };
+export const metadata = { title: "Accounts" };
 
 export default async function AccountsPage() {
   const user = await getCurrentUser();

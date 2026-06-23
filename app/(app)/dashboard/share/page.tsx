@@ -5,7 +5,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { getSocialSettings } from "@/lib/db/social";
 import { ShareControls } from "@/components/share/ShareControls";
 
-export const metadata = { title: "Share — Greek Journal" };
+export const metadata = { title: "Share" };
 
 export default async function SharePage() {
   const user = await getCurrentUser();

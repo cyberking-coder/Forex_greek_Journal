@@ -3,12 +3,14 @@ import type { AnalyticsTrade } from "@/lib/analytics/types";
 
 export type ShareFormat = "story" | "post" | "landscape";
 
-export const FORMAT_SIZE: Record<ShareFormat, { width: number; height: number }> =
-  {
-    story: { width: 1080, height: 1920 },
-    post: { width: 1080, height: 1080 },
-    landscape: { width: 1200, height: 630 },
-  };
+export const FORMAT_SIZE: Record<
+  ShareFormat,
+  { width: number; height: number }
+> = {
+  story: { width: 1080, height: 1920 },
+  post: { width: 1080, height: 1080 },
+  landscape: { width: 1200, height: 630 },
+};
 
 export function parseFormat(value: string | null | undefined): ShareFormat {
   return value === "story" || value === "landscape" ? value : "post";

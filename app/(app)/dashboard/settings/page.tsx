@@ -4,7 +4,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { listChecklistItems } from "@/lib/db/checklist";
 import { ChecklistSettings } from "@/components/settings/ChecklistSettings";
 
-export const metadata = { title: "Settings — Greek Journal" };
+export const metadata = { title: "Settings" };
 
 export default async function SettingsPage() {
   const user = await getCurrentUser();

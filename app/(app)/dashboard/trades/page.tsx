@@ -15,6 +15,8 @@ import { TradesFilters } from "@/components/trades/TradesFilters";
 import { TradeRowActions } from "@/components/trades/TradeRowActions";
 import type { TradeSide } from "@prisma/client";
 
+export const metadata = { title: "Trades" };
+
 const PAGE_SIZE = 10;
 
 type SearchParams = Record<string, string | string[] | undefined>;

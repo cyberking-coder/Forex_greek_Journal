@@ -8,7 +8,7 @@ import { formatDateTime } from "@/lib/format";
 import { PlanSelector } from "@/components/billing/PlanSelector";
 import { ManageBillingButton } from "@/components/billing/ManageBillingButton";
 
-export const metadata = { title: "Billing — Greek Journal" };
+export const metadata = { title: "Billing" };
 
 type SearchParams = Record<string, string | string[] | undefined>;
 function readParam(params: SearchParams, key: string): string | undefined {

@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getCurrentUser, signOut } from "@/lib/auth";
+
+export const metadata = { title: "Dashboard" };
+
 import { getTradesForAnalytics } from "@/lib/db/analytics";
 import {
   computeSummary,
