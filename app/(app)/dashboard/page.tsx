@@ -147,6 +147,24 @@ export default async function DashboardPage() {
             AI Reports
           </Link>
           <Link
+            href="/dashboard/leaderboard"
+            className="hover:border-accent/50 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium transition-colors hover:bg-surface-elevated"
+          >
+            Leaderboard
+          </Link>
+          <Link
+            href="/dashboard/lounge"
+            className="hover:border-accent/50 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium transition-colors hover:bg-surface-elevated"
+          >
+            Lounge
+          </Link>
+          <Link
+            href="/dashboard/share"
+            className="hover:border-accent/50 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium transition-colors hover:bg-surface-elevated"
+          >
+            Share
+          </Link>
+          <Link
             href="/dashboard/billing"
             className="hover:border-accent/50 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-medium transition-colors hover:bg-surface-elevated"
           >

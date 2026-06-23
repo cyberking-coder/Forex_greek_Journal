@@ -67,3 +67,8 @@ export function canUseBacktesting(plan: Plan): boolean {
 export function analyticsLevelFor(plan: Plan): AnalyticsLevel {
   return PLAN_LIMITS[plan].analytics;
 }
+
+/** Traders Lounge (real-time chat) is an Elite-only perk. */
+export function canUseLounge(plan: Plan): boolean {
+  return plan === "ELITE";
+}

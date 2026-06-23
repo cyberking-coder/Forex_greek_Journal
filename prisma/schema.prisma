@@ -69,6 +69,12 @@ model User {
   subscriptionStatus String?
   planRenewsAt       DateTime?
 
+  // Social
+  displayName        String?
+  leaderboardOptIn   Boolean   @default(false)
+  publicShareToken   String?   @unique
+  publicShareEnabled Boolean   @default(false)
+
   // Auth.js adapter relations
   accounts Account[]
   sessions Session[]
@@ -78,6 +84,36 @@ model User {
   trades          Trade[]
   aiReports       AiReport[]
   checklistItems  ChecklistItem[]
+  chatMessages    ChatMessage[]
+  chatReactions   ChatReaction[]
+}
+
+model ChatMessage {
+  id        String   @id @default(cuid())
+  channel   String
+  userId    String
+  body      String
+  createdAt DateTime @default(now())
+
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reactions ChatReaction[]
+
+  @@index([channel, createdAt])
+  @@index([userId])
+}
+
+model ChatReaction {
+  id        String   @id @default(cuid())
+  messageId String
+  userId    String
+  emoji     String
+  createdAt DateTime @default(now())
+
+  message ChatMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  user    User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([messageId, userId, emoji])
+  @@index([messageId])
 }
 
 // User-defined pre-trade checklist items. The per-trade ticked state is stored
