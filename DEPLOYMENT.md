@@ -80,10 +80,35 @@ prisma migrate deploy && next build
 
 ## 4. Deploy to Vercel
 
+Pick **one** of these — don't use both.
+
+### Option A — Vercel Git integration (simplest)
+
 1. Import the Git repo into Vercel. Framework preset: **Next.js** (also set in
    `vercel.json`).
 2. Add the environment variables from §2.
-3. Deploy. The included `vercel.json` registers the cron and function limits.
+3. To run migrations on each deploy, set the **Build Command** to
+   `prisma migrate deploy && next build` (single-runner builds only).
+4. Deploy. Every push to the production branch redeploys automatically. The
+   included `vercel.json` registers the cron and function limits.
+
+### Option B — GitHub Actions (CI owns the deploy)
+
+Use `.github/workflows/deploy-vercel.yml` when you want CI to run
+`prisma migrate deploy` as a gated step and deploy via the Vercel CLI. Add these
+**GitHub Actions secrets** (Settings → Secrets and variables → Actions):
+
+| Secret              | Where to get it                                           |
+| ------------------- | --------------------------------------------------------- |
+| `VERCEL_TOKEN`      | https://vercel.com/account/tokens                         |
+| `VERCEL_ORG_ID`     | `.vercel/project.json` after `vercel link`                |
+| `VERCEL_PROJECT_ID` | `.vercel/project.json` after `vercel link`                |
+| `DATABASE_URL`      | (optional) pooled Postgres URL — enables the migrate step |
+| `DIRECT_URL`        | (optional) direct Postgres URL — enables the migrate step |
+
+Runtime app env vars still live in the Vercel project settings (the workflow
+pulls them with `vercel pull`). Pushing to `main`/`master` then migrates and
+deploys to production.
 
 ## 5. Scheduled MT4/MT5 sync
 
