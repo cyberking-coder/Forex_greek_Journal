@@ -3,8 +3,14 @@
  * Edit text here rather than inside individual section components.
  */
 
-/** Where every "Get Started" CTA points. Set NEXT_PUBLIC_APP_URL in .env. */
-export const appUrl = process.env.NEXT_PUBLIC_APP_URL || "/dashboard";
+/**
+ * Marketing CTAs link to in-app routes. Marketing and the app ship from one
+ * deployment, so relative paths always resolve on the same domain — no env var
+ * needed (pointing these at NEXT_PUBLIC_APP_URL makes "Get Started" loop back to
+ * the homepage).
+ */
+export const appUrl = "/signup"; // "Get Started" / "Create Account"
+export const loginUrl = "/login"; // "Sign In"
 
 export const brand = {
   name: "Greek Journal",
@@ -245,7 +251,7 @@ export const footer = {
       title: "Get Started",
       links: [
         { label: "Create Account", href: appUrl },
-        { label: "Sign In", href: appUrl },
+        { label: "Sign In", href: loginUrl },
         { label: "FAQ", href: "#faq" },
       ],
     },
