@@ -112,16 +112,18 @@ deploys to production.
 
 ## 5. Scheduled MT4/MT5 sync
 
-`vercel.json` schedules `GET /api/cron/sync` every 5 minutes:
+`vercel.json` schedules `GET /api/cron/sync` once a day (Hobby-compatible):
 
 ```json
-{ "crons": [{ "path": "/api/cron/sync", "schedule": "*/5 * * * *" }] }
+{ "crons": [{ "path": "/api/cron/sync", "schedule": "0 0 * * *" }] }
 ```
 
 - The endpoint requires `Authorization: Bearer $CRON_SECRET`. Vercel Cron sends
   this automatically once `CRON_SECRET` is set.
-- **Plan limits:** sub-daily cron frequency and `maxDuration: 300` require the
-  Vercel **Pro** plan. On Hobby, lower the schedule to daily and/or run the
+- **Plan limits:** the **Hobby** plan allows only **daily** cron and caps
+  function `maxDuration` at **60s** — both defaults above respect that. On
+  **Pro** you can raise the cron frequency (e.g. `*/5 * * * *`) and bump
+  `maxDuration` up to 300s. For more frequent sync without Pro, run the
   standalone worker below.
 
 ### Standalone worker (recommended for many accounts)
